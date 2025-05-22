@@ -42,22 +42,22 @@ async function findHLTBGameUrl(browser, gameName) {
   const page = await browser.newPage();
   await page.goto(searchUrl, { waitUntil: "domcontentloaded" });
 
-  await page.waitForSelector('a[href^="/game/"]');
-  const href = await page.evaluate((gameName) => {
-    const links = Array.from(document.querySelectorAll('a[href^="/game/"]'));
-    const lower = gameName.toLowerCase();
+  await page.waitForSelector('.GameCard_search_list__IuMbi h2 a[href^="/game/"]');
+  const gameLink = await page.evaluate((gameName) => {
+    const links = Array.from(document.querySelectorAll('.GameCard_search_list__IuMbi h2 a[href^="/game/"]'));
     for (const a of links) {
-      if (a.textContent.trim().toLowerCase() === lower) {
-        return a.getAttribute("href");
-      }
+        if (a.textContent.trim().toLowerCase() === gameName.toLowerCase()) {
+          return a.getAttribute('href');
+        }
     }
-    return links[0]?.getAttribute("href") || null;
+    return links[0]?.getAttribute('href') || null;
   }, gameName);
 
+
   await page.close();
-  if (!href) return null;
+  if (!gamelink) return null;
   // Compose full URL
-  return `https://howlongtobeat.com${href}`;
+  return `https://howlongtobeat.com${gamelink}`;
 }
 
 app.post("/hltb", async (req, res) => {
