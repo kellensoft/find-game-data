@@ -193,7 +193,7 @@ app.post("/hltb", async (req, res) => {
 
     await page.goto(url, { waitUntil: "domcontentloaded" });
     const html = await page.content();
-    console.log(html.slice(0, 5000));
+    console.log(html);
 
     const times = await extractHLTBTimeData(page);
     await page.close();
