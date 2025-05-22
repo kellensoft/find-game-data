@@ -1,7 +1,8 @@
 import express from "express";
 import puppeteer from "puppeteer-extra";
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
-import cheerio from "cheerio";
+import * as cheerio from "cheerio";
+
 
 puppeteer.use(StealthPlugin());
 
