@@ -1,0 +1,14 @@
+{
+  "name": "find-game-data",
+  "version": "1.0.0",
+  "description": "microservice",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "puppeteer": "^22.0.0"
+  }
+}
