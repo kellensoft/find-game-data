@@ -180,8 +180,9 @@ app.post("/hltb", async (req, res) => {
     }
 
     const page = await browser.newPage();
-    page.on('request', req => console.log('REQ:', req.url()));
-    page.on('response', res => console.log('RES:', res.url(), res.status()));
+
+    await page.setViewport({ width: 1280, height: 1024 });
+    await page.emulateTimezone('America/New_York');
 
     await page.setUserAgent(
       "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
@@ -192,7 +193,7 @@ app.post("/hltb", async (req, res) => {
 
     await page.goto(url, { waitUntil: "domcontentloaded" });
     const html = await page.content();
-    console.log(html.slice(0, 2000));
+    console.log(html.slice(0, 5000));
 
     const times = await extractHLTBTimeData(page);
     await page.close();
