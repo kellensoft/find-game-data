@@ -18,7 +18,7 @@ async function findHLTBGameUrl(browser, gameName) {
     "Accept-Language": "en-US,en;q=0.9",
   });
 
-  await page.goto(searchUrl, { waitUntil: "domcontentloaded" });
+  await page.goto(searchUrl, { waitUntil: "networkidle2" });
 
   let foundLinks = [];
   try {
@@ -47,7 +47,6 @@ async function findHLTBGameUrl(browser, gameName) {
 
 async function extractHLTBTimeData(page) {
   try {
-    await page.goto(url, { waitUntil: "networkidle2" });
     await page.evaluate(() => !!document.querySelector(".GameTimeTable_game_main_table__7uN3H tbody"));
   } catch (e) {
     console.error("Timeout waiting for HLTB time data:", e);
