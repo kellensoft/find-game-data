@@ -47,7 +47,8 @@ async function findHLTBGameUrl(browser, gameName) {
 
 async function extractHLTBTimeData(page) {
   try {
-    await page.waitForSelector(".GameTimeTable_game_main_table__7uN3H tbody", { timeout: 10000 });
+    await page.goto(url, { waitUntil: "networkidle2" });
+    await page.evaluate(() => !!document.querySelector(".GameTimeTable_game_main_table__7uN3H tbody"));
   } catch (e) {
     console.error("Timeout waiting for HLTB time data:", e);
     return {};
@@ -192,8 +193,6 @@ app.post("/hltb", async (req, res) => {
     });
 
     await page.goto(url, { waitUntil: "domcontentloaded" });
-    const html = await page.content();
-    console.log(html);
 
     const times = await extractHLTBTimeData(page);
     await page.close();
